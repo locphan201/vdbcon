@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MySQL Connection Form</title>
+</head>
+<body>
+    <h1>MySQL Database Connection Form</h1>
+    <form action="api/mysql/check-connection" method="post">
+        <label for="hostname">Hostname:</label>
+        <input type="text" id="hostname" name="hostname" required><br><br>
+
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required><br><br>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required><br><br>
+
+        <label for="database">Database:</label>
+        <input type="text" id="database" name="database" required><br><br>
+
+        <input type="submit" value="Connect">
+    </form>
+</body>
+</html>
