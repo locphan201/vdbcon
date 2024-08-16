@@ -10,18 +10,6 @@ class MySQLConnector:
         self.conn = None
         self.err = None
         self.tables = {}
-        
-        # self.tables.clear()
-        # tables = self.get_tables()
-        # for table in tables[:1]:
-        #     columns = self.describe_table(table)
-            
-        #     temp = {}
-        #     for column in columns:
-        #         temp[column[0]] = column[1]
-                
-        #     self.tables[table] = temp
-        # print(self.tables)
 
     def configure(self, hostname: str, database: str, username: str, password: str):
         self.hostname = hostname
@@ -40,7 +28,7 @@ class MySQLConnector:
             return None
         except Error as err:
             return err
-
+    
     def check_connection(self):
         self.err = self.connect()
         if self.err:
@@ -60,6 +48,12 @@ class MySQLConnector:
             cursor.execute(query)
             tables = cursor.fetchall()
             tables = [table[0] for table in tables]
+            
+            self.tables.clear()
+            for table in tables:
+                columns = self.describe_table(table)
+                self.tables[table] = [column[0] for column in columns]
+
             self.err = None
             return tables
         except Error as e:
