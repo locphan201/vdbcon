@@ -76,9 +76,9 @@ class MySQLConnector:
             self.err = e
             return []
 
-    def select_query(self, table):
+    def select(self, table, conditions={}):
         query = f'''
-            SELECT * FROM {table}
+            SELECT * FROM {table} WHERE something
         '''
 
         self.connect()
@@ -101,6 +101,38 @@ class MySQLConnector:
         except Error as e:
             self.err = e
             return []
+
+    def update(self, table, data={}, conditions={}):
+        query = f'''
+            UPDATE {table} SET something WHERE something;
+        '''
+
+        self.connect()
+        cursor = self.conn.cursor()
+        try:
+            cursor.execute(query)
+            self.conn.commit()
+            self.err = None
+            return None
+        except Error as e:
+            self.err = e
+            return e
+        
+    def delete(self, table, conditions={}):
+        query = f'''
+            DELETE FROM {table} WHERE something;
+        '''
+
+        self.connect()
+        cursor = self.conn.cursor()
+        try:
+            cursor.execute(query)
+            self.conn.commit()
+            self.err = None
+            return None
+        except Error as e:
+            self.err = e
+            return e
 
 mysql_db = MySQLConnector()
 
